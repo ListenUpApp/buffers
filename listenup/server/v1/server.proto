@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package listenup.server.v1;
+
+// Defines a ListenUp Server
+message Server {
+  // Whether the server has a root user or not.
+  bool is_set_up = 1;
+  // The config for the server
+  ServerConfig config =2;
+}
+
+// Holds any and all server configuration information
+message ServerConfig {
+  string server_name = 1;
+}
+
+// Request message for the Ping method
+message PingRequest {}
+
+// Response message for the Ping method
+message PingResponse {
+  string message = 1;
+  int64 timestamp = 2;
+}
+
+// Service definition for server operations
+service ServerService {
+  // Ping method to check server responsiveness
+  rpc Ping(PingRequest) returns (PingResponse);
+}
