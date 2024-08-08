@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package listenup.user.v1;
+
+service UserService {}
+
+message User {
+  string id = 1;
+  string name = 2;
+  string email = 4;
+  bytes profile_picture = 5;
+  string current_library_id = 6;
+  repeated string library_ids = 7;
+  UserPreferences preferences = 8;
+  google.protobuf.Timestamp created_at = 9;
+  google.protobuf.Timestamp last_login = 10;
+}
+
+message UserPreferences {}
