@@ -7,7 +7,7 @@ message Server {
   // Whether the server has a root user or not.
   bool is_set_up = 1;
   // The config for the server
-  ServerConfig config =2;
+  ServerConfig config = 2;
 }
 
 // Holds any and all server configuration information

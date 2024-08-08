@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package listenup.user.v1;
+
+import "google/protobuf/timestamp.proto";
+
+service UserService {}
+
+// A ListenUp user
+message User {
+  // The users ID
+  string id = 1;
+  // The name of the user, this is displayed in most places in an application.
+  string name = 2;
+  // The users email
+  string email = 4;
+  // The users profile picture, represented as bytes for flexibility purposes.
+  bytes profile_picture = 5;
+  // The library ID the user has opened currently, or opened last
+  string current_library_id = 6;
+  // The list of libraries the user has access to
+  repeated string library_ids = 7;
+  // The users preferences
+  UserPreferences preferences = 8;
+  // The time the user was created
+  google.protobuf.Timestamp created_at = 9;
+  //The time the user was last seen
+  google.protobuf.Timestamp last_login = 10;
+}
+
+// Holds all of the users preferences and settings (once we have some)
+message UserPreferences {}
