@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package listenup.permission.v1;
+
+// Enum representing the available roles in the system
+enum Role {
+  ROLE_UNSPECIFIED = 0;
+  ROLE_GUEST = 1;
+  ROLE_USER = 2;
+  ROLE_CONTENT_MANAGER = 3;
+  ROLE_ADMIN = 4;
+  ROLE_ROOT = 5;
+}
+
+// Enum representing the types of resources
+enum ResourceType {
+  RESOURCE_TYPE_UNSPECIFIED = 0;
+  RESOURCE_TYPE_GLOBAL = 1;
+  RESOURCE_TYPE_LIBRARY = 2;
+  RESOURCE_TYPE_BOOK = 3;
+}
+
+// Represents a set of permissions
+message Permissions {
+  bool can_read = 1;
+  bool can_update = 2;
+  bool can_add = 3;
+  bool can_delete = 4;
+  bool can_manage_users = 5;
+  bool can_manage_permissions = 6;
+}
+
+// Represents permissions for a specific resource
+message ResourcePermissions {
+  // The type of the resource (so we know what to look up)
+  ResourceType resource_type = 1;
+  // The id of the resource itself
+  string resource_id = 2;
+}
+
+// Defines the default permissions for each role
+message RolePermissions {
+  // The role the permission is attached to
+  Role role = 1;
+  // The individual permissions themselves
+  Permissions permissions = 2;
+}
+
+// Service for managing permissions
+service PermissionService {}

@@ -3,6 +3,7 @@ syntax = "proto3";
 package listenup.user.v1;
 
 import "google/protobuf/timestamp.proto";
+import "listenup/permission/v1/permission.proto";
 
 service UserService {}
 
@@ -26,6 +27,10 @@ message User {
   google.protobuf.Timestamp created_at = 9;
   //The time the user was last seen
   google.protobuf.Timestamp last_login = 10;
+  // The role the user has on a server
+  listenup.permission.v1.Role role = 11;
+  // Override permissions here on a resource basis if needed
+  repeated listenup.permission.v1.ResourcePermissions override_permissions = 12;
 }
 
 // Holds all of the users preferences and settings (once we have some)
