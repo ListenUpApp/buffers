@@ -13,6 +13,14 @@ service AuthService {
   rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse) {}
 }
 
+// This is the type that gets stored in our database ultimately, but is only used for Auth purposes
+message AuthUser {
+  // Holds a reference to the User, this is really the only data we use outside of auth purposes
+  listenup.user.v1.User user = 1;
+  // The users password, for authentication/authorization
+  string hashed_password = 2;
+}
+
 message RegisterRequest {
   // The users email (we don't do any verification logic with this yet, but may in the future)
   string email = 1;
@@ -37,6 +45,8 @@ message LoginResponse {
   string access_token = 1;
   // The user themselves.
   listenup.user.v1.User user = 2;
+  // Refresh token
+  string refresh_token = 3;
 }
 
 message RefreshTokenRequest {
