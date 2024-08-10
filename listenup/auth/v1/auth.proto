@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package listenup.auth.v1;
 
+import "listenup/server/v1/server.proto";
 import "listenup/user/v1/user.proto";
 
 service AuthService {
@@ -13,12 +14,20 @@ service AuthService {
   rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse) {}
 }
 
-// This is the type that gets stored in our database ultimately, but is only used for Auth purposes
+// This is the type that gets stored in our database ultimately, but is only used for Auth purposes and will never be returned to the client.
 message AuthUser {
   // Holds a reference to the User, this is really the only data we use outside of auth purposes
   listenup.user.v1.User user = 1;
   // The users password, for authentication/authorization
   string hashed_password = 2;
+}
+
+// We use this in a similar way to the AuthUser type. As a wrapper with extra information only the server needs. This will never be returned to the client.
+message AuthServer {
+  // The embedded server type
+  listenup.server.v1.Server server = 1;
+  // The string responsible for signing JWT tokens.
+  string jwt_signing_token = 2;
 }
 
 message RegisterRequest {
