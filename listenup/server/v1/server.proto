@@ -24,8 +24,19 @@ message PingResponse {
   int64 timestamp = 2;
 }
 
+// Empty request to get a copy of the servers information
+message GetServerRequest {}
+
+// Returns a copy of the server with configuration info
+message GetServerResponse {
+  listenup.server.v1.Server server = 1;
+}
+
 // Service definition for server operations
 service ServerService {
   // Ping method to check server responsiveness
   rpc Ping(PingRequest) returns (PingResponse);
+
+  // Gets a copy of the server and it's configuration details
+  rpc GetServer(GetServerRequest) returns (GetServerResponse);
 }
