@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+package listenup.library.v1;
+
+import "google/protobuf/timestamp.proto";
+
+// A library is a collection of directories and associated settings and users.
+message Library {
+  // The library's id
+  string id = 1;
+  // The total number of books in a library
+  int32 total_books = 2;
+  // The directories that make up a library
+  repeated Directory directories = 3;
+  // When was the library created
+  google.protobuf.Timestamp created_at = 4;
+  // Settings for the library
+  LibrarySettings settings = 5;
+}
+
+message GetLibraryRequest {
+  // The libraries ID
+  string id = 1;
+}
+
+message GetLibraryResponse {
+  Library library = 2;
+}
+
+message GetLibrariesForUserRequest {
+  // The users ID
+  string user_id = 1;
+}
+
+message GetLibrariesForUserResponse {
+  // The users libraries
+  repeated Library libraries = 1;
+}
+
+message ListLibrariesRequest {
+  // The number of items to return per page
+  int32 page_size = 1;
+  // The index for the page
+  string page_index = 2;
+}
+
+message ListLibrariesResponse {
+  // List of libraries
+  repeated Library libraries = 1;
+}
+
+message CreateLibraryRequest {
+  string name = 1;
+  repeated Directory directories = 2;
+  LibrarySettings settings = 3;
+}
+
+message CreateLibraryResponse {
+  Library library = 1;
+}
+
+// A list of settings for the library, we can expand on this over time.
+message LibrarySettings {}
+
+message AddDirectoryToLibraryRequest {
+  string library_id = 1;
+  Directory directory = 2;
+}
+
+message AddDirectoryToLibraryResponse {
+  Directory directory = 1;
+}
+
+// A directory represents a physical directory on the host machine's hard drive.  This is used for scanning books.
+message Directory {
+  // The directories ID
+  string id = 1;
+  // The name of the directory or folder
+  string name = 2;
+  // The path on the host machine to the directory
+  string path = 3;
+  // The total number of books in a directory
+  int32 total_books = 4;
+}
+
+service LibraryService {
+  // Retrieves a single library by ID
+  rpc GetLibrary(GetLibraryRequest) returns (GetLibraryResponse) {}
+  // Returns a paginated list of libraries
+  rpc ListLibraries(ListLibrariesRequest) returns (ListLibrariesResponse) {}
+  // Creates a library
+  rpc CreateLibrary(CreateLibraryRequest) returns (CreateLibraryResponse) {}
+  // Returns all libraries for a given User
+  rpc GetLibrariesForUser(GetLibrariesForUserRequest) returns (GetLibrariesForUserResponse) {}
+  // Adds a directory to a library
+  rpc AddDirectoryToLibrary(AddDirectoryToLibraryRequest) returns (AddDirectoryToLibraryResponse) {}
+}
