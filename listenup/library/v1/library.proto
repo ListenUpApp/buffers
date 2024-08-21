@@ -85,32 +85,6 @@ message Directory {
   int32 total_books = 4;
 }
 
-// Represents a folder on the Host Machine.  This type differs from Directory by providing folders as a navigatable
-// tree for the UI.  This allows the user to navigate and select the folders to include in a library which we then
-// convert to a directory
-message Folder {
-  // The name of the folder
-  string name = 1;
-  // The path to the folder
-  string path = 2;
-  // The depth of the folder on the filesystem
-  int32 level = 3;
-  // The list of subfolders inside the directory
-  repeated Folder sub_folders = 50;
-}
-
-message GetFolderRequest {
-  // The path to the directory
-  optional string path = 1;
-  // The depth of the folder on the filesystem
-  optional int32 level = 2;
-}
-
-message GetFolderResponse {
-  // The list of folders in a directory
-  repeated Folder folders = 1;
-}
-
 service LibraryService {
   // Retrieves a single library by ID
   rpc GetLibrary(GetLibraryRequest) returns (GetLibraryResponse) {}
@@ -122,6 +96,4 @@ service LibraryService {
   rpc GetLibrariesForUser(GetLibrariesForUserRequest) returns (GetLibrariesForUserResponse) {}
   // Adds a directory to a library
   rpc AddDirectoryToLibrary(AddDirectoryToLibraryRequest) returns (AddDirectoryToLibraryResponse) {}
-  // Gets a folder on the host machines hard drive
-  rpc GetFolder(GetFolderRequest) returns (GetFolderResponse) {}
 }
