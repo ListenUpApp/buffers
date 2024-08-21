@@ -8,14 +8,16 @@ import "google/protobuf/timestamp.proto";
 message Library {
   // The library's id
   string id = 1;
+  // The libraries name
+  string name = 2;
   // The total number of books in a library
-  int32 total_books = 2;
+  int32 total_books = 3;
   // The directories that make up a library
-  repeated Directory directories = 3;
+  repeated Directory directories = 4;
   // When was the library created
-  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp created_at = 5;
   // Settings for the library
-  LibrarySettings settings = 5;
+  LibrarySettings settings = 6;
 }
 
 message GetLibraryRequest {
