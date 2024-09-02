@@ -8,3 +8,5 @@ breaking:
 modules:
   - path: .
     name: buf.build/listenup/listenup
+deps:
+  - buf.build/googleapis/googleapis
