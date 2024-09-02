@@ -3,6 +3,7 @@ syntax = "proto3";
 package listenup.library.v1;
 
 import "google/protobuf/timestamp.proto";
+import "listenup/folder/v1/folder.proto";
 
 // A library is a collection of directories and associated settings and users.
 message Library {
@@ -53,7 +54,7 @@ message ListLibrariesResponse {
 
 message CreateLibraryRequest {
   string name = 1;
-  repeated Directory directories = 2;
+  repeated listenup.folder.v1.Folder folders = 2;
   LibrarySettings settings = 3;
 }
 
@@ -66,7 +67,7 @@ message LibrarySettings {}
 
 message AddDirectoryToLibraryRequest {
   string library_id = 1;
-  Directory directory = 2;
+  listenup.folder.v1.Folder directory = 2;
 }
 
 message AddDirectoryToLibraryResponse {
